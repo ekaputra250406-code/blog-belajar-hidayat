@@ -1,302 +1,273 @@
 // ==========================================
-/// ==========================================
-// 1. FITUR DARK MODE (MODE GELAP / TERANG)
+// KONFIGURASI JSONBIN
 // ==========================================
-const btnTheme = document.getElementById('btnTheme');
+const BIN_ID = '6aaeed3affd5d160531a54a3';
+const MASTER_KEY = '$2a$10$y7nGfpfVNY9Jo6sy/KR4Kuy4/GqZks1O9aFK1vd4ASo8oOywRnEhu';
+const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
-// Cek status tema yang tersimpan di LocalStorage saat pertama dimuat
-const temaTersimpan = localStorage.getItem('tema');
-
-if (temaTersimpan === 'dark') {
-    document.body.classList.add('dark-mode');
-    btnTheme.textContent = '☀️ Mode Terang';
-}
-
-btnTheme.addEventListener('click', function() {
-    // Switch class dark-mode
-    document.body.classList.toggle('dark-mode');
-
-    // Simpan status ke LocalStorage & ubah teks tombol
-    if (document.body.classList.contains('dark-mode')) {
-        btnTheme.textContent = '☀️ Mode Terang';
-        localStorage.setItem('tema', 'dark');
-    } else {
-        btnTheme.textContent = '🌙 Mode Gelap';
-        localStorage.setItem('tema', 'light');
-    }
-});
-
-
-// ==========================================
-// 2. FITUR PENCARIAN ARTIKEL
-// ==========================================
-const inputCari = document.getElementById('inputCari');
-const daftarArtikel = document.querySelectorAll('article'); // Mengambil semua elemen <article>
-
-inputCari.addEventListener('keyup', function() {
-    const kataKunci = inputCari.value.toLowerCase();
-
-    daftarArtikel.forEach(function(artikel) {
-        const judul = artikel.querySelector('h2').textContent.toLowerCase();
-        const isi = artikel.querySelector('p').textContent.toLowerCase();
-
-        // Jika judul atau isi cocok dengan kata kunci, tampilkan. Jika tidak, sembunyikan.
-        if (judul.includes(kataKunci) || isi.includes(kataKunci)) {
-            artikel.style.display = 'block';
-        } else {
-            artikel.style.display = 'none';
-        }
-    });
-});
-
-
-// ==========================================
-// ==========================================
-// 3. FITUR FORM KOMENTAR + LOCALSTORAGE (+ HAPUS)
-// ==========================================
-const form = document.getElementById('formKomentar');
+// DOM Elements
+const formKomentar = document.getElementById('formKomentar');
 const inputNama = document.getElementById('nama');
 const inputPesan = document.getElementById('pesan');
 const wadahKomentar = document.getElementById('daftarKomentar');
 
-// Fungsi untuk menampilkan daftar komentar dari LocalStorage
-function tampilkanKomentar() {
-    const simpananKomentar = JSON.parse(localStorage.getItem('dataKomentar')) || [];
-
-    if (simpananKomentar.length === 0) {
-        wadahKomentar.innerHTML = '<p><em>Belum ada komentar. Jadilah yang pertama!</em></p>';
-        return;
+// ==========================================
+// 1. FITUR TEMA (MODE GELAP / TERANG)
+// ==========================================
+const btnTheme = document.getElementById('btnTheme');
+if (btnTheme) {
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        btnTheme.textContent = '☀️ Mode Terang';
     }
 
-    wadahKomentar.innerHTML = ''; 
-
-    // Looping data komentar dan tambahkan tombol Hapus
-    simpananKomentar.forEach(function(item, index) {
-        const elemenKomentar = document.createElement('div');
-        elemenKomentar.style.borderLeft = '4px solid #27ae60';
-        elemenKomentar.style.backgroundColor = 'rgba(0,0,0,0.03)';
-        elemenKomentar.style.padding = '10px';
-        elemenKomentar.style.marginTop = '10px';
-        elemenKomentar.style.borderRadius = '4px';
-        elemenKomentar.style.display = 'flex';
-        elemenKomentar.style.justifyContent = 'space-between';
-        elemenKomentar.style.alignItems = 'center';
-
-        elemenKomentar.innerHTML = `
-            <div>
-                <strong>${item.nama}</strong>
-                <p style="margin: 5px 0 0 0;">${item.pesan}</p>
-            </div>
-            <button onclick="hapusKomentar(${index})" style="background-color: #e74c3c; padding: 5px 10px; font-size: 12px; margin-left: 10px;">Hapus</button>
-        `;
-        wadahKomentar.appendChild(elemenKomentar);
-    });
-}
-
-// Fungsi untuk menghapus komentar berdasarkan index
-function hapusKomentar(index) {
-    let simpananKomentar = JSON.parse(localStorage.getItem('dataKomentar')) || [];
-    
-    // Hapus 1 data pada urutan/index yang dipilih
-    simpananKomentar.splice(index, 1);
-    
-    // Simpan kembali data yang baru ke LocalStorage
-    localStorage.setItem('dataKomentar', JSON.stringify(simpananKomentar));
-    
-    // Perbarui tampilan di halaman
-    tampilkanKomentar();
-}
-
-// Jalankan fungsi tampilkanKomentar saat halaman dimuat
-tampilkanKomentar();
-
-// Event saat form di-submit
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const nama = inputNama.value;
-    const pesan = inputPesan.value;
-
-    const simpananKomentar = JSON.parse(localStorage.getItem('dataKomentar')) || [];
-    simpananKomentar.push({ nama: nama, pesan: pesan });
-
-    localStorage.setItem('dataKomentar', JSON.stringify(simpananKomentar));
-
-    tampilkanKomentar();
-
-    inputNama.value = '';
-    inputPesan.value = '';
-});
-// ==========================================
-// 4. FITUR HITUNG WAKTU BACA (READING TIME)
-// ==========================================
-function hitungWaktuBaca() {
-    // Rata-rata kecepatan membaca manusia (200 kata per menit)
-    const kataPerMenit = 200; 
-
-    // Ambil semua elemen artikel
-    const daftarArtikel = document.querySelectorAll('article');
-
-    daftarArtikel.forEach(function(artikel) {
-        // Ambil seluruh teks di dalam artikel tersebut
-        const teks = artikel.textContent || artikel.innerText;
-        
-        // Hitung jumlah kata (memisahkan teks berdasarkan spasi)
-        const jumlahKata = teks.trim().split(/\s+/).length;
-        
-        // Hitung estimasi menit (pembulatan ke atas)
-        const estimasiMenit = Math.ceil(jumlahKata / kataPerMenit);
-        
-        // Cari wadah span 'waktu-baca' di dalam artikel ini
-        const elemenWaktu = artikel.querySelector('.waktu-baca');
-        
-        if (elemenWaktu) {
-            elemenWaktu.textContent = `⏱️ ${estimasiMenit} menit baca`;
+    btnTheme.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            btnTheme.textContent = '☀️ Mode Terang';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            btnTheme.textContent = '🌙 Mode Gelap';
+            localStorage.setItem('theme', 'light');
         }
     });
 }
 
-// Jalankan fungsi saat halaman selesai dimuat
-hitungWaktuBaca();
 // ==========================================
-// ==========================================
-// ==========================================
-// ==========================================
-// ==========================================
-// 6. FITUR LIKE ARTIKEL (LOCALSTORAGE)
-// ==========================================
-function muatDataLike() {
-    const tombolLike = document.querySelectorAll('.btn-like');
-    
-    tombolLike.forEach(btn => {
-        // Ambil kunci unik artikel dari atribut onclick
-        const kunci = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
-        const jumlah = localStorage.getItem(kunci) || 0;
-        const isLiked = localStorage.getItem(kunci + '_status') === 'true';
-
-        // Tampilkan angka jumlah like
-        btn.querySelector('.jumlah-like').textContent = jumlah;
-
-        // Beri warna merah jika user pernah menyukai artikel ini
-        if (isLiked) {
-            btn.classList.add('liked');
-        }
-    });
-}
-
-function tambahLike(btn, kunci) {
-    let jumlah = parseInt(localStorage.getItem(kunci)) || 0;
-    let isLiked = localStorage.getItem(kunci + '_status') === 'true';
-
-    if (!isLiked) {
-        // Jika belum disukai, tambahkan 1
-        jumlah += 1;
-        localStorage.setItem(kunci, jumlah);
-        localStorage.setItem(kunci + '_status', 'true');
-        btn.classList.add('liked');
-    } else {
-        // Jika diklik lagi, kurangi 1 (Unlike)
-        jumlah = Math.max(0, jumlah - 1);
-        localStorage.setItem(kunci, jumlah);
-        localStorage.setItem(kunci + '_status', 'false');
-        btn.classList.remove('liked');
-    }
-
-    // Update angka di layar
-    btn.querySelector('.jumlah-like').textContent = jumlah;
-}
-
-// Jalankan saat halaman dibuka
-muatDataLike();
-// ==========================================
-// 7. FITUR BAGIKAN ARTIKEL (MODAL POPUP)
-// ==========================================
-let urlShareAktif = '';
-
-function bagikanArtikel(idArtikel) {
-    const artikel = event.target.closest('article');
-    const judul = artikel ? artikel.querySelector('h2').textContent : 'Catatan Belajar IT';
-    
-    urlShareAktif = window.location.href.split('#')[0] + '#' + idArtikel;
-
-    // Tampilkan judul di modal
-    document.getElementById('judulArtikelShare').textContent = judul;
-
-    // Set tautan WhatsApp & Email
-    const teksWA = encodeURIComponent(`Yuk baca artikel "${judul}" di Catatan Belajar Hidayat Eka Saputra: ${urlShareAktif}`);
-    document.getElementById('shareWA').href = `https://wa.me/?text=${teksWA}`;
-
-    const teksMail = encodeURIComponent(`Halo, saya ingin membagikan artikel menarik berjudul "${judul}". Cek di sini: ${urlShareAktif}`);
-    document.getElementById('shareMail').href = `mailto:?subject=${encodeURIComponent(judul)}&body=${teksMail}`;
-
-    // Tampilkan modal popup
-    document.getElementById('modalShare').style.display = 'flex';
-}
-
-function tutupModalShare() {
-    document.getElementById('modalShare').style.display = 'none';
-}
-
-function salinLinkModals() {
-    navigator.clipboard.writeText(urlShareAktif).then(() => {
-        alert('📋 Tautan artikel berhasil disalin!');
-        tutupModalShare();
-    });
-}
-
-// Tutup modal jika klik di luar area konten
-window.onclick = function(event) {
-    const modal = document.getElementById('modalShare');
-    if (event.target === modal) {
-        tutupModalShare();
-    }
-};
-// ==========================================
-// 8. FITUR READING PROGRESS BAR
+// 2. FITUR READING PROGRESS BAR
 // ==========================================
 window.addEventListener('scroll', function() {
-    const totalTinggiHalaman = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const posisiScroll = document.documentElement.scrollTop || document.body.scrollTop;
-    
-    // Hitung persentase scroll (0 - 100%)
-    const persentase = (posisiScroll / totalTinggiHalaman) * 100;
-    
-    // Ubah lebar elemen progressBar
-    document.getElementById('progressBar').style.width = persentase + '%';
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    const progressBar = document.getElementById('progressBar');
+    if (progressBar) {
+        progressBar.style.width = scrolled + '%';
+    }
 });
+
 // ==========================================
-// 9. FITUR WIDGET QUOTE MOTIVASI IT
+// 3. FITUR WIDGET QUOTE MOTIVASI IT
 // ==========================================
 const daftarQuote = [
-    {
-        teks: "First, solve the problem. Then, write the code.",
-        penulis: "— John Johnson"
-    },
-    {
-        teks: "Kunci keberhasilan belajar koding adalah konsistensi, bukan seberapa cepat kamu paham dalam sehari.",
-        penulis: "— Hidayat Eka Saputra"
-    },
-    {
-        teks: "Experience is the name everyone gives to their mistakes.",
-        penulis: "— Oscar Wilde"
-    },
-    {
-        teks: "Jangan takut ketemu error, karena dari error-lah seorang programmer belajar memecahkan masalah.",
-        penulis: "— Hidayat Eka Saputra"
-    },
-    {
-        teks: "Code is like humor. When you have to explain it, it’s bad.",
-        penulis: "— Cory House"
-    }
+    { teks: "First, solve the problem. Then, write the code.", penulis: "— John Johnson" },
+    { teks: "Kunci keberhasilan belajar koding adalah konsistensi, bukan seberapa cepat kamu paham dalam sehari.", penulis: "— Hidayat Eka Saputra" },
+    { teks: "Experience is the name everyone gives to their mistakes.", penulis: "— Oscar Wilde" },
+    { teks: "Jangan takut ketemu error, karena dari error-lah seorang programmer belajar memecahkan masalah.", penulis: "— Catatan Belajar IT" },
+    { teks: "Code is like humor. When you have to explain it, it’s bad.", penulis: "— Cory House" }
 ];
 
 function tampilQuoteAcak() {
-    const indeksAcak = Math.floor(Math.random() * daftarQuote.length);
-    const quotePilihan = daftarQuote[indeksAcak];
+    const teksQuote = document.getElementById('teksQuote');
+    const penulisQuote = document.getElementById('penulisQuote');
+    if (teksQuote && penulisQuote) {
+        const indeksAcak = Math.floor(Math.random() * daftarQuote.length);
+        const quotePilihan = daftarQuote[indeksAcak];
+        teksQuote.textContent = quotePilihan.teks;
+        penulisQuote.textContent = quotePilihan.penulis;
+    }
+}
+tampilQuoteAcak();
 
-    document.getElementById('teksQuote').textContent = quotePilihan.teks;
-    document.getElementById('penulisQuote').textContent = quotePilihan.penulis;
+// ==========================================
+// 4. FITUR SUKA (LIKE GLOBAL) & BAGIKAN
+// ==========================================
+async function muatLikeGlobal() {
+    try {
+        const response = await fetch(`${API_URL}/latest`, {
+            headers: { 'X-Master-Key': MASTER_KEY }
+        });
+        if (!response.ok) return;
+
+        const result = await response.json();
+        const likesData = result.record.likes || {};
+
+        document.querySelectorAll('.btn-like').forEach((btn, index) => {
+            const key = `art${index + 1}`;
+            const jumlah = likesData[key] || 0;
+            const spanJumlah = btn.querySelector('.jumlah-like');
+            if (spanJumlah) spanJumlah.textContent = jumlah;
+        });
+    } catch (error) {
+        console.error('Gagal memuat data like:', error);
+    }
 }
 
-// Jalankan otomatis saat halaman dimuat
-tampilQuoteAcak();
+async function tambahLike(btn, key) {
+    try {
+        const resGet = await fetch(`${API_URL}/latest`, {
+            headers: { 'X-Master-Key': MASTER_KEY }
+        });
+        const dataGet = await resGet.json();
+        const record = dataGet.record || {};
+        const likesData = record.likes || {};
+
+        // Tambah 1 jumlah like untuk artikel ini
+        likesData[key] = (likesData[key] || 0) + 1;
+
+        // Update ke server
+        const resPut = await fetch(API_URL, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': MASTER_KEY
+            },
+            body: JSON.stringify({
+                ...record,
+                likes: likesData
+            })
+        });
+
+        if (resPut.ok) {
+            const spanJumlah = btn.querySelector('.jumlah-like');
+            if (spanJumlah) spanJumlah.textContent = likesData[key];
+        }
+    } catch (error) {
+        alert('Gagal menyukai artikel!');
+        console.error('Error:', error);
+    }
+}
+
+function bagikanArtikel(idArtikel) {
+    const urlLengkap = window.location.href.split('#')[0] + '#' + idArtikel;
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(urlLengkap).then(() => {
+            alert('Link artikel berhasil disalin ke clipboard!');
+        });
+    } else {
+        alert('Link artikel: ' + urlLengkap);
+    }
+}
+
+// ==========================================
+// 5. FITUR KOMENTAR ONLINE (JSONBin.io)
+// ==========================================
+async function muatKomentarOnline() {
+    if (!wadahKomentar) return;
+    wadahKomentar.innerHTML = '<p><em>Sedang memuat komentar...</em></p>';
+    
+    try {
+        const response = await fetch(`${API_URL}/latest`, {
+            headers: { 'X-Master-Key': MASTER_KEY }
+        });
+        
+        if (!response.ok) throw new Error('Gagal mengambil data');
+
+        const result = await response.json();
+        const daftarKomentar = result.record.komentar || [];
+
+        wadahKomentar.innerHTML = '';
+
+        if (daftarKomentar.length === 0) {
+            wadahKomentar.innerHTML = '<p><em>Belum ada komentar. Jadilah yang pertama!</em></p>';
+            return;
+        }
+
+        daftarKomentar.slice().reverse().forEach((item, index) => {
+            const originalIndex = daftarKomentar.length - 1 - index;
+
+            const elemen = document.createElement('div');
+            elemen.style.borderLeft = '4px solid #27ae60';
+            elemen.style.backgroundColor = 'rgba(0,0,0,0.03)';
+            elemen.style.padding = '10px';
+            elemen.style.marginTop = '10px';
+            elemen.style.borderRadius = '4px';
+            elemen.style.display = 'flex';
+            elemen.style.justifyContent = 'space-between';
+            elemen.style.alignItems = 'center';
+
+            elemen.innerHTML = `
+                <div>
+                    <strong>${item.nama}</strong>
+                    <p style="margin: 5px 0 0 0;">${item.pesan}</p>
+                </div>
+                <button onclick="hapusKomentarOnline(${originalIndex})" style="background-color: #e74c3c; padding: 5px 10px; font-size: 12px; border:none; color:white; border-radius:3px; cursor:pointer;">Hapus</button>
+            `;
+            wadahKomentar.appendChild(elemen);
+        });
+    } catch (error) {
+        wadahKomentar.innerHTML = '<p style="color:red;"><em>Gagal memuat komentar. Coba refresh halaman.</em></p>';
+        console.error('Error:', error);
+    }
+}
+
+if (formKomentar) {
+    formKomentar.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const nama = inputNama.value.trim();
+        const pesan = inputPesan.value.trim();
+
+        if (!nama || !pesan) return;
+
+        try {
+            const resGet = await fetch(`${API_URL}/latest`, {
+                headers: { 'X-Master-Key': MASTER_KEY }
+            });
+            const dataGet = await resGet.json();
+            const record = dataGet.record || {};
+            const komentarLama = record.komentar || [];
+
+            komentarLama.push({ nama, pesan, waktu: new Date().toISOString() });
+
+            const resPut = await fetch(API_URL, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': MASTER_KEY
+                },
+                body: JSON.stringify({
+                    ...record,
+                    komentar: komentarLama
+                })
+            });
+
+            if (resPut.ok) {
+                inputNama.value = '';
+                inputPesan.value = '';
+                muatKomentarOnline();
+            }
+        } catch (error) {
+            alert('Gagal mengirim komentar!');
+            console.error('Error:', error);
+        }
+    });
+}
+
+async function hapusKomentarOnline(index) {
+    if (!confirm('Yakin ingin menghapus komentar ini?')) return;
+
+    try {
+        const resGet = await fetch(`${API_URL}/latest`, {
+            headers: { 'X-Master-Key': MASTER_KEY }
+        });
+        const dataGet = await resGet.json();
+        const record = dataGet.record || {};
+        let komentarList = record.komentar || [];
+
+        komentarList.splice(index, 1);
+
+        const resPut = await fetch(API_URL, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': MASTER_KEY
+            },
+            body: JSON.stringify({
+                ...record,
+                komentar: komentarList
+            })
+        });
+
+        if (resPut.ok) {
+            muatKomentarOnline();
+        }
+    } catch (error) {
+        alert('Gagal menghapus komentar!');
+        console.error('Error:', error);
+    }
+}
+
+// Inisialisasi saat halaman pertama kali dimuat
+muatKomentarOnline();
+muatLikeGlobal();
