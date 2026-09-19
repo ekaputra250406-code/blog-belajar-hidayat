@@ -1,0 +1,392 @@
+/* 1. Mengatur gaya tampilan utama halaman (Body) */
+body {
+    font-family: Arial, sans-serif; /* Mengubah jenis huruf biar rapi */
+    line-height: 1.6;               /* Memberi jarak antar baris teks */
+    background-color: #f4f4f9;      /* Warna latar belakang agak abu-abu muda */
+    color: #333333;                 /* Warna teks utama (abu-abu gelap) */
+    max-width: 800px;               /* Membatasi lebar maksimal konten */
+    margin: 0 auto;                 /* Mengatur posisi konten di tengah layar */
+    padding: 20px;                  /* Jarak dalam antara konten dan tepi layar */
+}
+
+/* 2. Mengatur tampilan Bagian Atas (Header) */
+header {
+    background-color: #2c3e50;      /* Warna latar biru gelap */
+    color: #ffffff;                 /* Teks warna putih */
+    padding: 20px;
+    text-align: center;             /* Teks posisi di tengah */
+    border-radius: 8px;             /* Membuat sudut melengkung */
+}
+
+/* 3. Mengatur Navigasi / Menu */
+nav {
+    background-color: #34495e;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+nav a {
+    color: #ffffff;                 /* Warna link menjadi putih */
+    text-decoration: none;          /* Menghilangkan garis bawah link */
+    margin: 0 10px;                 /* Jarak antar menu */
+    font-weight: bold;              /* Cetak tebal */
+}
+
+nav a:hover {
+    color: #f1c40f;                 /* Warna berubah kuning saat kursor diatasnya */
+}
+
+/* 4. Mengatur Tampilan Kartu Artikel (Article) */
+article, section {
+    background-color: #ffffff;      /* Latar kotak berwarna putih */
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;             /* Sudut membulat */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Bayangan halus di sekitar kotak */
+}
+
+/* 5. Mengatur Form Komentar */
+form input, form textarea {
+    width: 100%;                    /* Lebar input menyesuaikan kotak */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;         /* Agar padding tidak merusak ukuran elemen */
+}
+
+button {
+    background-color: #27ae60;      /* Tombol warna hijau */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;                /* Mengubah kursor jadi ikon tangan */
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #219150;      /* Warna tombol lebih gelap saat diklik/ditunjuk */
+}
+
+/* 6. Mengatur Bagian Bawah (Footer) */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #777777;
+}
+/* 7. Class khusus untuk Mode Gelap (Dark Mode) */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #f4f4f9;
+}
+
+body.dark-mode header,
+body.dark-mode nav {
+    background-color: #111111;
+}
+
+body.dark-mode article,
+body.dark-mode section {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+}
+
+body.dark-mode input,
+body.dark-mode textarea {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+/* Style Tombol WhatsApp */
+.btn-wa {
+    display: inline-block;
+    background-color: #25D366;
+    color: white;
+    padding: 10px 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-wa:hover {
+    background-color: #128C7E;
+}
+/* Style khusus Foto Profil Lingkaran */
+.foto-profil {
+    width: 100px !important;
+    height: 100px !important;
+    max-width: 100px !important;
+    max-height: 100px !important;
+    border-radius: 50% !important;   /* Membuat foto jadi bulat sempurna */
+    object-fit: cover !important;    /* Memotong foto dengan rapi tanpa gepeng */
+    border: 3px solid #27ae60;       /* Bingkai garis hijau */
+    flex-shrink: 0;                   /* Mencegah foto menciut/mendorong teks */
+}
+/* ==========================================
+   STYLE TOMBOL MODE GELAP / TERANG (DESAIN BARU)
+   ========================================== */
+.btn-theme {
+    background-color: #f1c40f;
+    color: #2c3e50;
+    border: none;
+    padding: 7px 15px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-theme:hover {
+    transform: scale(1.05);
+    background-color: #f39c12;
+    color: #ffffff;
+}
+
+/* Style khusus tombol saat dalam Mode Gelap */
+body.dark-mode .btn-theme {
+    background-color: #e67e22;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-theme:hover {
+    background-color: #d35400;
+}
+/* ==========================================
+   STYLE UNTUK MEDIA SOSIAL & EMAIL (WARNA ASLI)
+   ========================================== */
+.sosmed-links {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sosmed-links a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.sosmed-links a:hover {
+    transform: translateX(4px); /* Efek bergeser sedikit ke kanan saat ditunjuk */
+    opacity: 0.85;
+}
+
+.sosmed-links i {
+    font-size: 18px;
+    width: 22px;
+    text-align: center;
+}
+
+/* 1. Warna Asli Ikon Email (Gmail Merah) */
+.sosmed-links .fa-envelope {
+    color: #ea4335;
+}
+
+/* 2. Warna Asli Ikon Instagram (Gradasi Pink/Ungu Khas IG) */
+.sosmed-links .fa-instagram {
+    background: -webkit-linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* 3. Warna Asli Ikon TikTok */
+.sosmed-links .fa-tiktok {
+    color: #000000;
+}
+
+/* Penyesuaian Teks & Ikon TikTok saat Mode Gelap */
+body.dark-mode .sosmed-links a {
+    color: #ecf0f1;
+}
+
+body.dark-mode .sosmed-links .fa-tiktok {
+    color: #ffffff; /* Mengubah ikon TikTok jadi putih di mode gelap agar kelihatan */
+}
+/* ==========================================
+   STYLE TOMBOL LIKE ARTIKEL
+   ========================================== */
+.btn-like {
+    background-color: #fff0f3;
+    color: #e63946;
+    border: 1px solid #ffb703;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-like:hover {
+    background-color: #e63946;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* Style tombol jika sudah pernah diklik (Liked) */
+.btn-like.liked {
+    background-color: #e63946;
+    color: #ffffff;
+    border-color: #e63946;
+}
+/* ==========================================
+   STYLE TOMBOL SHARE / BAGIKAN
+   ========================================== */
+.btn-share {
+    background-color: #e8f4f8;
+    color: #2980b9;
+    border: 1px solid #3498db;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-share:hover {
+    background-color: #3498db;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* Penyesuaian saat Mode Gelap */
+body.dark-mode .btn-share {
+    background-color: #1a365d;
+    color: #63b3ed;
+    border-color: #4299e1;
+}
+
+body.dark-mode .btn-share:hover {
+    background-color: #3182ce;
+    color: #ffffff;
+}
+/* ==========================================
+   STYLE MODAL POPUP BAGIKAN
+   ========================================== */
+.modal-share {
+    display: none; 
+    position: fixed; 
+    z-index: 10000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+body.dark-mode .modal-content {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.close-modal {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #888;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+body.dark-mode .close-modal:hover {
+    color: #fff;
+}
+
+.share-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-share-option {
+    display: block;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-share-option.wa { background-color: #25D366; }
+.btn-share-option.mail { background-color: #EA4335; }
+.btn-share-option.copy { background-color: #34495E; }
+
+.btn-share-option:hover { opacity: 0.9; }
+/* ==========================================
+   STYLE READING PROGRESS BAR
+   ========================================== */
+#progressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background-color: #27ae60;  /* Warna hijau */
+    width: 0%;                   /* Awalnya 0% */
+    z-index: 10001;              /* Selalu berada di paling atas */
+    transition: width 0.1s ease-out;
+}
+/* ==========================================
+   STYLE WIDGET QUOTE MOTIVASI
+   ========================================== */
+#widgetQuote {
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+body.dark-mode #widgetQuote {
+    background-color: #2a2a2a !important;
+    border-left-color: #27ae60 !important;
+}
+
+body.dark-mode #widgetQuote p {
+    color: #ecf0f1 !important;
+}
+
+body.dark-mode #widgetQuote small {
+    color: #bdc3c7 !important;
+}

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catatan Belajar Saya</title>
+
+    <!-- MENGHUBUNGKAN FILE CSS EXTERNAL -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- MENGHUBUNGKAN PUSTAKA IKON FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <body>
+    <!-- INDIKATOR KEMAJUAN MEMBACA -->
+    <div id="progressBar"></div>
+
+    <!-- HEADER -->
+    <header>
+        <h1>Catatan Belajar Web</h1>
+        <p>Tempat menyimpan ringkasan materi dan hal menarik yang dipelajari.</p>
+        <hr>
+    </header>
+
+    <!-- WIDGET QUOTE OF THE DAY -->
+    <section id="widgetQuote" style="text-align: center; background-color: #eef9f1; border-left: 5px solid #27ae60; padding: 15px; margin: 15px 0;">
+        <p style="margin: 0; font-style: italic; font-size: 15px; color: #2c3e50;">
+            "<span id="teksQuote">Loading motivasi...</span>"
+        </p>
+        <small id="penulisQuote" style="display: block; margin-top: 5px; font-weight: bold; color: #7f8c8d;"></small>
+        <button onclick="tampilQuoteAcak()" style="margin-top: 10px; padding: 4px 10px; font-size: 11px; background-color: #27ae60;">
+            🔄 Quote Lain
+        </button>
+    </section>
+
+    <!-- NAVIGASI -->
+    <nav>
+        ...
+    <nav>
+        <a href="#catatan">Daftar Catatan</a> | 
+        <a href="#tentang">Tentang Saya</a> | 
+        <a href="#kontak">Kontak</a>
+        
+        <!-- Tombol Tema & Kolom Cari yang Diperbarui -->
+        <div style="margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <button id="btnTheme" class="btn-theme">🌙 Mode Gelap</button>
+            <input type="text" id="inputCari" placeholder="Cari artikel..." style="padding: 6px 12px; width: 180px; border-radius: 20px; border: 1px solid #ccc;">
+        </div>
+        <hr>
+    </nav>
+
+    <!-- KONTEN UTAMA -->
+    <main id="catatan">
+
+        <!-- Artikel 1: HTML & CSS -->
+        <article data-kategori="web">
+            <h2>1. Dasar Pemrograman Web: HTML & CSS</h2>
+            <p>
+                <em>Kategori: Web Development | Diterbitkan: 19 September 2026</em> 
+                | <span class="waktu-baca">⏱️ Menghitung waktu baca...</span>
+            </p>
+            <p>
+                Dalam pembuatan website, <strong>HTML</strong> bertindak sebagai fondasi atau kerangka utama halaman, sedangkan <strong>CSS</strong> berfungsi untuk memberikan tampilan visual seperti warna, tata letak, dan ukuran teks.
+            </p>
+
+            <h3>Poin Penting HTML5:</h3>
+            <ul>
+                <li><strong>Tag Semantik:</strong> Menggunakan tag seperti <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, dan <code>&lt;footer&gt;</code> agar struktur kode mudah dibaca oleh mesin pencari (SEO).</li>
+                <li><strong>Atribut Formulir:</strong> Penggunaan atribut seperti <code>required</code>, <code>placeholder</code>, dan tipe input spesifik (email, number) memudahkan validasi data awal.</li>
+            </ul>
+
+            <h3>Poin Penting CSS3:</h3>
+            <ul>
+                <li><strong>Flexbox & Grid:</strong> Fitur modern untuk mengatur posisi elemen secara fleksibel dan responsif di berbagai ukuran layar.</li>
+                <li><strong>CSS Variables:</strong> Memudahkan pengelolaan warna atau tema (seperti fitur Dark Mode) secara konsisten.</li>
+            </ul>
+            <h3>Konsep Responsive Web Design (RWD):</h3>
+            <p>
+                Website modern harus dapat diakses dengan nyaman di berbagai ukuran layar, mulai dari smartphone hingga monitor desktop.
+            </p>
+            <ul>
+                <li><strong>Media Queries:</strong> Teknik CSS untuk memberikan gaya visual berbeda berdasarkan ukuran viewport perangkat (contoh: <code>@media (max-width: 768px)</code>).</li>
+                <li><strong>Mobile-First Approach:</strong> Merancang tampilan untuk layar kecil (HP) terlebih dahulu, baru kemudian menyesuaikan tata letak untuk layar yang lebih lebar.</li>
+            </ul>
+            <!-- Tambahkan di bagian bawah Artikel 1 (sebelum tag tertutup </article>) -->
+<div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+    <button class="btn-like" onclick="tambahLike(this, 'like_art1')">
+        ❤️ <span class="jumlah-like">0</span> Suka
+    </button>
+    <button class="btn-share" onclick="bagikanArtikel('artikel-1')">
+        🔗 Bagikan
+    </button>
+</div>
+        </article>
+
+        <br><hr><br>
+
+        <!-- Artikel 2: Basis Data -->
+        <article data-kategori="database">
+            <h2>2. Pengenalan Basis Data & SQL</h2>
+            <p>
+                <em>Kategori: Database Management | Diterbitkan: 18 September 2026</em> 
+                | <span class="waktu-baca">⏱️ Menghitung waktu baca...</span>
+            </p>
+            <p>
+                <strong>Database Management System (DBMS)</strong> adalah perangkat lunak yang dirancang untuk mengelola, menyimpan, dan mengambil data secara terstruktur.
+            </p>
+
+            <h3>Perintah Dasar SQL (Structured Query Language):</h3>
+            <ul>
+                <li><code>SELECT</code>: Mengambil data dari tabel.</li>
+                <li><code>INSERT INTO</code>: Menambahkan data baru ke dalam tabel.</li>
+                <li><code>UPDATE</code>: Memperbarui data yang sudah ada.</li>
+                <li><code>DELETE</code>: Menghapus data tertentu dari tabel.</li>
+            </ul>
+
+            <blockquote>
+                <p><strong>Catatan Praktik:</strong> Selalu gunakan klausul <code>WHERE</code> saat menjalankan perintah <code>UPDATE</code> atau <code>DELETE</code> agar tidak mengubah seluruh isi data di dalam tabel!</p>
+            </blockquote>
+            <h3>Konsep Normalisasi & Key dalam Database Relasional:</h3>
+            <p>
+                Agar data tersimpan secara efisien tanpa adanya redundansi (duplikasi data yang tidak perlu), struktur tabel perlu dirancang menggunakan relasi:
+            </p>
+            <ul>
+                <li><strong>Primary Key (PK):</strong> Kolom yang berisi nilai unik untuk mengidentifikasi setiap baris data di dalam tabel.</li>
+                <li><strong>Foreign Key (FK):</strong> Kolom yang menghubungkan satu tabel dengan Primary Key pada tabel lain.</li>
+                <li><strong>Normalisasi Data:</strong> Proses mengorganisasi data ke dalam bentuk tabel-tabel terpisah (1NF, 2NF, 3NF) untuk meminimalkan anomali saat manipulasi data.</li>
+            </ul>
+            <!-- Tambahkan di bagian bawah Artikel 2 -->
+<div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+    <button class="btn-like" onclick="tambahLike(this, 'like_art2')">
+        ❤️ <span class="jumlah-like">0</span> Suka
+    </button>
+    <button class="btn-share" onclick="bagikanArtikel('artikel-2')">
+        🔗 Bagikan
+    </button>
+</div>
+        </article>
+
+        <br><hr><br>
+
+        <!-- Artikel 3: Jaringan Komputer & Cloud -->
+        <article data-kategori="jaringan">
+            <h2>3. Konsep Jaringan Komputer & Cloud Computing</h2>
+            <p>
+                <em>Kategori: Networking | Diterbitkan: 17 September 2026</em> 
+                | <span class="waktu-baca">⏱️ Menghitung waktu baca...</span>
+            </p>
+            <p>
+                Jaringan komputer memungkinkan dua atau lebih perangkat terhubung untuk saling berkirim data. Pemahaman tentang alokasi alamat IP dan model komunikasi data sangat penting sebelum mempelajari arsitektur cloud.
+            </p>
+
+            <h3>Konsep Utama:</h3>
+            <ul>
+                <li><strong>IP Address & Subnetting:</strong> Identitas unik pada setiap perangkat di jaringan untuk memastikan data dikirim ke tujuan yang benar.</li>
+                <li><strong>Model OSI (Open Systems Interconnection):</strong> Standar 7 lapisan (*layers*) yang menjelaskan cara data bergerak dari satu aplikasi di komputer pengirim hingga diterima oleh komputer penerima.</li>
+                <li><strong>Cloud Services:</strong> Pembagian layanan cloud menjadi IaaS (*Infrastructure as a Service*), PaaS (*Platform as a Service*), dan SaaS (*Software as a Service*).</li>
+            </ul>
+        
+            <h3>Dasar Keamanan Jaringan & Protokol Web:</h3>
+            <p>
+                Selain pengalamatan IP, pemahaman tentang komunikasi data yang aman sangat penting saat membangun aplikasi web modern:
+            </p>
+            <ul>
+                <li><strong>HTTP vs HTTPS:</strong> HTTPS menggunakan enkripsi SSL/TLS untuk melindungi data yang dikirim antara browser pengguna dan server dari pengintaian pihak ketiga.</li>
+                <li><strong>DNS (Domain Name System):</strong> Layanan yang menerjemahkan nama domain yang mudah diingat manusia (contoh: <code>google.com</code>) menjadi alamat IP numerik komputer.</li>
+            </ul>
+            <!-- TOMBOL LIKE & SHARE ARTIKEL 3 -->
+            <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+                <button class="btn-like" onclick="tambahLike(this, 'like_art3')">
+                    ❤️ <span class="jumlah-like">0</span> Suka
+                </button>
+                <button class="btn-share" onclick="bagikanArtikel('artikel-3')">
+                    🔗 Bagikan
+                </button>
+            </div>
+        </article>
+
+        <!-- Artikel 4: Git & GitHub -->
+        <article data-kategori="web">
+            <h2>4. Pengenalan Git & GitHub: Version Control System</h2>
+            <p>
+                <em>Kategori: Web Development | Diterbitkan: 20 September 2026</em> 
+                | <span class="waktu-baca">⏱️ Menghitung waktu baca...</span>
+            </p>
+            <p>
+                <strong>Git</strong> adalah sistem pengontrol versi (<em>Version Control System</em>) yang digunakan untuk melacak perubahan pada berkas kode proyek, sedangkan <strong>GitHub</strong> adalah platform berbasis cloud untuk menyimpan dan mengelola repositori Git secara terdistribusi.
+            </p>
+
+            <h3>Perintah Dasar Git yang Wajib Dikuasai:</h3>
+            <ul>
+                <li><code>git init</code>: Menginisialisasi repositori Git baru di dalam folder proyek lokal.</li>
+                <li><code>git add .</code>: Menandai seluruh perubahan file agar siap untuk disimpan (<em>staging area</em>).</li>
+                <li><code>git commit -m "pesan"</code>: Menyimpan riwayat perubahan kode beserta catatan/pesannya.</li>
+                <li><code>git push origin main</code>: Mengunggah (*upload*) komit dari komputer lokal ke repositori GitHub.</li>
+            </ul>
+
+            <blockquote>
+                <p><strong>Manfaat Utama:</strong> Dengan Git, kamu tidak perlu lagi membuat folder salinan seperti <code>Project_v1</code>, <code>Project_Final</code>, atau <code>Project_Revisi_Fix</code> karena semua riwayat tersimpan rapi!</p>
+            </blockquote>
+
+            <!-- Tombol Like & Share -->
+            <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+                <button class="btn-like" onclick="tambahLike(this, 'like_art4')">
+                    ❤️ <span class="jumlah-like">0</span> Suka
+                </button>
+                <button class="btn-share" onclick="bagikanArtikel('artikel-4')">
+                    🔗 Bagikan
+                </button>
+            </div>
+        </article>
+            
+
+    </main>
+
+    <br><hr><br>
+
+    <!-- SECTION: BAGIAN TENTANG PENULIS -->
+    <section id="tentang">
+        <h2>Tentang Penulis</h2>
+        
+        <!-- Foto Profil & Informasi Penulis -->
+        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-bottom: 15px;">
+            <img src="profil.jpeg" alt="Foto Hidayat Eka Saputra" class="foto-profil">
+            <div>
+                <h3 style="margin: 0;">Hidayat Eka Saputra</h3>
+                <p style="margin: 5px 0; color: #666;">Mahasiswa IT • Universitas Nahdlatul Ulama Yogyakarta</p>
+                
+                <!-- TAMBAHAN: Tautan Media Sosial & Email -->
+                <div class="sosmed-links">
+                    <a href="mailto:ekaputra250406@gmail.com" target="_blank" title="Email">
+                        <i class="fa-solid fa-envelope"></i> ekaputra250406@gmail.com
+                    </a>
+                    <a href="https://instagram.com/eka.putrraa" target="_blank" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i> @eka.putrraa
+                    </a>
+                    <a href="https://tiktok.com/@eka.putrraa" target="_blank" title="TikTok">
+                        <i class="fa-brands fa-tiktok"></i> @eka.putrraa
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <p>
+            Halo! Perkenalkan, nama saya <strong>Hidayat Eka Saputra</strong>. Saya adalah seorang mahasiswa yang sedang menempuh studi di <strong>Universitas Nahdlatul Ulama Yogyakarta</strong>.
+        </p>
+        <p>
+            Website ini dibuat sebagai wadah dokumentasi pribadi untuk mencatat, merangkum, dan mendokumentasikan berbagai materi perkuliahan serta topik teknologi informasi yang sedang saya pelajari.
+        </p>
+    </section>
+
+    <!-- SECTION KONTAK & KOMENTAR -->
+    <section id="kontak">
+        <h2>Tinggalkan Pesan / Hubungi Saya</h2>
+        
+        <!-- Tombol Chat WhatsApp -->
+        <div style="margin-bottom: 20px;">
+            <p>Mau diskusi lebih cepat? Hubungi via WhatsApp:</p>
+            <a href="https://wa.me/6281374523231?text=Halo,%20saya%20tertarik%20dengan%20catatan%20belajar%20kamu!" target="_blank" class="btn-wa">
+                💬 Chat via WhatsApp
+            </a>
+        </div>
+
+        <hr>
+
+        <!-- Form Komentar -->
+        <form id="formKomentar">
+            <label for="nama">Nama:</label><br>
+            <input type="text" id="nama" name="nama" placeholder="Masukkan nama kamu..." required><br><br>
+
+            <label for="pesan">Pesan / Komentar:</label><br>
+            <textarea id="pesan" name="pesan" rows="4" cols="40" placeholder="Tulis pesan kamu di sini..." required></textarea><br><br>
+
+            <button type="submit">Kirim Pesan</button>
+        </form>
+
+        <!-- Tempat Komentar Muncul -->
+        <hr style="margin-top: 20px;">
+        <h3>Komentar Pengunjung:</h3>
+        <div id="daftarKomentar">
+            <p><em>Belum ada komentar. Jadilah yang pertama!</em></p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <hr>
+        <p>&copy; 2026 Catatan Belajar Saya. Dibuat dengan HTML, CSS & JS.</p>
+    </footer>
+
+    <!-- MENGHUBUNGKAN JAVASCRIPT -->
+    <script src="script.js"></script>
+    <!-- MODAL POPUP BAGIKAN -->
+    <div id="modalShare" class="modal-share">
+        <div class="modal-content">
+            <span class="close-modal" onclick="tutupModalShare()">&times;</span>
+            <h3>Bagikan Artikel</h3>
+            <p id="judulArtikelShare" style="font-size: 14px; color: #666;"></p>
+            <div class="share-options">
+                <a id="shareWA" href="#" target="_blank" class="btn-share-option wa">
+                    💬 WhatsApp
+                </a>
+                <a id="shareMail" href="#" target="_blank" class="btn-share-option mail">
+                    ✉️ Email
+                </a>
+                <button onclick="salinLinkModals()" class="btn-share-option copy">
+                    📋 Salin Tautan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+</body>
+</html>
